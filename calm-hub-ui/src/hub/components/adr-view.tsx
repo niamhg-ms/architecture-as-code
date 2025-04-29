@@ -1,22 +1,33 @@
 import { useNavigate } from 'react-router-dom';
 import { allExpanded, defaultStyles, JsonView } from 'react-json-view-lite';
 import 'react-json-view-lite/dist/index.css';
-import { Adr, Data } from '../../model/calm.js';
+import { Adr } from '../../model/calm.js';
 import Markdown from 'react-markdown';
-import { AdrMeta } from '../../model/adr/adr.meta.js';
 import { Option } from '../../model/adr/option.js';
+import { Link } from '../../model/adr/link.js';
 
 interface JsonRendererProps {
     jsonString: Adr | undefined;
 }
 
-function displayLinks(links: string[]) {
+function getDate(date: string) {
+    let newDate = new Date(date);
+
+    return (
+        <div className="inline">
+            {newDate.getDate()} {newDate.toLocaleString('default', { month: 'short' })},{' '}
+            {newDate.getFullYear()} <p className="inline font-normal">at</p> {newDate.getHours()}:
+            {newDate.getMinutes()}
+        </div>
+    );
+}
+function displayLinks(links: Link[]) {
     let returnList = [];
     for (var link of links) {
         returnList.push(
-            <li>
-                <a href={link} target="_blank" className="underline">
-                    {link}
+            <li key={link.rel}>
+                <a href={link.href} rel={link.rel} target="_blank" className="underline">
+                    {link.rel}
                 </a>
             </li>
         );
@@ -24,10 +35,19 @@ function displayLinks(links: string[]) {
     return returnList;
 }
 
+function displayDecisionDrivers(drivers: string[]) {
+    let returnList = [];
+    for (var driver of drivers) {
+        returnList.push(<li key={driver}>{driver}</li>);
+    }
+    return returnList;
+}
+
 function getListOfConsequences(consequences: string[]) {
     let returnList = [];
-    for (var consequence in consequences) {
-        returnList.push(<li> {consequence} </li>);
+    console.log('CONSEQUENCES', consequences);
+    for (var i = 0; i < consequences.length; i++) {
+        returnList.push(<li key={consequences[i].valueOf()}> {consequences[i].valueOf()} </li>);
     }
     return returnList;
 }
@@ -36,14 +56,14 @@ function displayConsideredOptions(consideredOptions: Option[]) {
     let returnList = [];
     for (var consideredOption of consideredOptions) {
         returnList.push(
-            <tr>
-                <td className="border border-black">{consideredOption.name}</td>
-                <td className="border border-black">{consideredOption.description}</td>
-                <td className="border border-black">
+            <tr key={consideredOption.name}>
+                <td className="border border-black p-1">{consideredOption.name}</td>
+                <td className="border border-black p-1">{consideredOption.description}</td>
+                <td className="border border-black p-1">
                     {getListOfConsequences(consideredOption.positiveConsequences)}
                 </td>
-                <td className="border border-black">
-                    {getListOfConsequences(consideredOption.positiveConsequences)}
+                <td className="border border-black p-1">
+                    {getListOfConsequences(consideredOption.negativeConsequences)}
                 </td>
             </tr>
         );
@@ -56,9 +76,11 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
     // const navigate = useNavigate();
     let adr = undefined;
     console.log(jsonString);
+
     if (jsonString !== undefined) {
-        adr = jsonString!.adr;
+        adr = jsonString?.adr;
     }
+
     const jsonView = (
         <div>
             <button
@@ -68,7 +90,7 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
                 Edit
             </button>
 
-            <div className="font-bold inline text-3xl"> {adr!.title}</div>
+            <div className="font-bold inline text-3xl"> {adr && adr!.title}</div>
             <div className="inline bg-orange-500 w-15 rounded-full text-center text-xs p-1 ms-3 text-white font-bold">
                 Draft
             </div>
@@ -76,64 +98,66 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
             <div className="pt-5 pb-5">
                 <p className="font-bold border-t border-b border-black"> Context and Problem</p>
                 <div className="pt-1 pe-2">
-                    <Markdown>{adr!.contextAndProblemStatement}</Markdown>
+                    <Markdown>{adr && adr!.contextAndProblemStatement}</Markdown>
                 </div>
             </div>
 
             <div className="pb-5">
-                <p className="font-bold border-t border-b border-black"> Decision Drivers </p>
-                <p className="pt-1 pe-2"> list </p>
+                <p className="font-bold border-t border-b border-black pb-1"> Decision Drivers </p>
+                <div className="pt-1 pe-2">
+                    {' '}
+                    {adr && displayDecisionDrivers(adr!.decisionDrivers)}{' '}
+                </div>
             </div>
 
             <div className="pb-5">
-                <p className="font-bold border-t border-b border-black">Considered Options</p>
-                <p className="pt-1 pe-2"> list </p>
-                <table className="table-fixed border border-black-500">
+                <p className="font-bold border-t border-b border-black pb-1">Considered Options</p>
+                <table className="table-fixed border border-black-500  mt-3">
                     <thead className="border border-black">
                         <tr>
-                            <th>Name</th>
-                            <th>Decision</th>
-                            <th>Positive Consequences</th>
-                            <th>Negative Consequences</th>
+                            <th className="border border-black p-1 w-60">Name</th>
+                            <th className="border border-black p-1 w-60">Decision</th>
+                            <th className="border border-black p-1 w-60">Positive Consequences</th>
+                            <th className="border border-black p-1 w-60">Negative Consequences</th>
                         </tr>
                     </thead>
-                    <tbody> {displayConsideredOptions(adr!.consideredOptions)}</tbody>
+                    <tbody>{adr && displayConsideredOptions(adr!.consideredOptions)}</tbody>
                 </table>
             </div>
 
             <div className="pb-5">
-                <p className="font-bold border-t border-b border-black"> Decision Outcome </p>
-                <table className="table-fixed border border-black-500">
+                <p className="font-bold border-t border-b border-black pb-1"> Decision Outcome </p>
+                <table className="table-fixed border border-black-500  mt-3">
                     <thead className="border border-black">
                         <tr>
-                            <th>Name</th>
-                            <th>Decision</th>
-                            <th>Positive Consequences</th>
-                            <th>Negative Consequences</th>
+                            <th className="border border-black p-1 w-60">Name</th>
+                            <th className="border border-black p-1 w-60">Decision</th>
+                            <th className="border border-black p-1 w-60">Positive Consequences</th>
+                            <th className="border border-black p-1 w-60">Negative Consequences</th>
                         </tr>
                     </thead>
-                    <tbody> {displayConsideredOptions(adr!.consideredOptions)}</tbody>
+                    <tbody>{adr && displayConsideredOptions(adr!.consideredOptions)}</tbody>
                 </table>
                 <p> Rational: </p>
-                <div className="pt-1 pe-2">
-                    <Markdown>{adr!.decisionOutcome.rationale}</Markdown>
+                <div className="pt-2 pe-2">
+                    <Markdown>{adr && adr!.decisionOutcome.rationale}</Markdown>
                 </div>
             </div>
 
             <div className="pb-5">
                 <p className="font-bold border-t border-b border-black"> Links </p>
-                <div className="pt-1 pe-2"> {displayLinks(adr!.links)} </div>
+                <div className="pt-1 pe-2"> {adr && displayLinks(adr!.links)} </div>
             </div>
 
             <div className="italic">
-                <p>
-                    Created on <p className="font-bold inline">9 Jun 2002</p> by{' '}
-                    <p className="font-bold inline">Niamh Gillespie</p>{' '}
-                </p>
-                <p>
-                    Last updated on <p className="font-bold inline">29 Apr 2025</p> by{' '}
-                    <p className="font-bold inline">Niamh Gillespie</p>{' '}
-                </p>
+                <div>
+                    Created on
+                    <p className="font-bold inline"> {adr && getDate(adr.creationDateTime)}</p>
+                </div>
+                <div>
+                    Last updated on
+                    <p className="font-bold inline"> {adr && getDate(adr.updateDateTime)}</p>
+                </div>
             </div>
         </div>
     );

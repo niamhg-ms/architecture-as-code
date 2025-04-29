@@ -69,13 +69,13 @@ export async function fetchFlowIDs(namespace: string, setFlowIDs: (flowIDs: Flow
  */
 export async function fetchAdrIDs(namespace: string, setAdrIDs: (adrIDs: AdrID[]) => void) {
     try {
-        // const accessToken = await getToken();
-        // const res = await fetch(`/calm/namespaces/${namespace}/flows`, {
-        //     method: 'GET',
-        //     headers: { Authorization: `Bearer ${accessToken}` },
-        // });
-        // const data = await res.json();
-        setAdrIDs(['1']);
+        const accessToken = await getToken();
+        const res = await fetch(`/calm/namespaces/${namespace}/adrs`, {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        const data = await res.json();
+        setAdrIDs(data.values);
     } catch (error) {
         console.error(`Error fetching adr IDs for namespace ${namespace}:`, error);
     }
@@ -132,15 +132,13 @@ export async function fetchAdrRevisions(
     setAdrRevisions: (adrRevisions: Revision[]) => void
 ) {
     try {
-        // const accessToken = await getToken();
-        // no back end calls for now - hardcode response
-        // const res = await fetch(`/calm/namespaces/${namespace}/ard/${adrID}/revisions`, {
-        //     method: 'GET',
-        //     headers: { Authorization: `Bearer ${accessToken}` },
-        // });
-        // const data = await res.json();
-        // setAdrRevisions(data.values);
-        setAdrRevisions(['1']);
+        const accessToken = await getToken();
+        const res = await fetch(`/calm/namespaces/${namespace}/adrs/${adrID}/revisions`, {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        const data = await res.json();
+        setAdrRevisions(data.values);
     } catch (error) {
         console.error(`Error fetching versions for ADR ID ${adrID}:`, error);
     }
@@ -214,17 +212,19 @@ export async function fetchAdr(
     setAdr: (adr: Data) => void
 ) {
     try {
-        // const accessToken = await getToken();
-        // const res = await fetch(
-        //     `/calm/namespaces/${namespace}/flows/${flowID}/versions/${version}`,
-        //     {
-        //         method: 'GET',
-        //         headers: { Authorization: `Bearer ${accessToken}` },
-        //     }
-        // );
-        // const response = await res.json();
-        const data: Data = { name: 'finos', data: 'Hello world?' };
-        setAdr(data);
+        const accessToken = await getToken();
+        const res = await fetch(
+            `/calm/namespaces/${namespace}/adrs/${adrID}/revisions/${revision}`,
+            {
+                method: 'GET',
+                headers: { Authorization: `Bearer ${accessToken}` },
+            }
+        );
+        const response = await res.json();
+
+        // const adrMeta: AdrMeta = JSON.parse(response);
+        // console.log(response);
+        setAdr(response);
     } catch (error) {
         console.error(
             `Error fetching flow for namespace ${namespace}, adr ID ${adrID}, revision ${revision}:`,

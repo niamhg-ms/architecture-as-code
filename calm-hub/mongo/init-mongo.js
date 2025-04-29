@@ -2587,3 +2587,82 @@ db.architectures.insertMany([
         }]
     }
 ]);
+db.adrs.insertMany([
+    {
+        namespace: 'finos',
+        adrs: [
+            {
+                adrId: NumberInt(1),
+                revisions: {
+                    1: {
+                        title: 'ADR - 1',
+                        status: 'draft',
+                        creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
+                        updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
+                        contextAndProblemStatement:
+                            'This is the problem and context statement',
+                        decisionDrivers: [
+                            'decision driver 1',
+                            'decision driver 1',
+                        ],
+                        consideredOptions: [
+                            {
+                                name: 'option 1',
+                                description: 'this is option1',
+                                positiveConsequences: ['positive '],
+                                negativeConsequences: ['negative'],
+                            },
+                        ],
+                        decisionOutcome: {
+                            chosenOption: {
+                                name: 'option1',
+                                description: 'best option',
+                                positiveConsequences: ['positive'],
+                                negativeConsequences: ['negative'],
+                            },
+                            rationale: 'it was the best',
+                        },
+                        links: [{ rel: 'My Link', href: 'http://my-link.com' }],
+                    },
+                    
+                },
+            },
+            {
+                adrId: NumberInt(2),
+                revisions: {
+                    1: {
+                        title: 'ADR - 2',
+                        status: 'accepted',
+                        creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
+                        updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
+                        contextAndProblemStatement:
+                            'This is the problem and context statement',
+                        decisionDrivers: [
+                            'decision driver 1',
+                            'decision driver 1',
+                        ],
+                        consideredOptions: [
+                            {
+                                name: 'option 1',
+                                description: 'this is option1',
+                                positiveConsequences: ['positive '],
+                                negativeConsequences: ['negative'],
+                            },
+                        ],
+                        decisionOutcome: {
+                            chosenOption: {
+                                name: 'option1',
+                                description: 'best option',
+                                positiveConsequences: ['positive'],
+                                negativeConsequences: ['negative'],
+                            },
+                            rationale: 'it was the best',
+                        },
+                        links: [{ rel: 'My Link', href: 'http://my-link.com' }],
+                    },
+                    
+                },
+            },
+        ],
+    },
+]);

@@ -31,7 +31,8 @@
     "vitest": "^3.1.1"
   },
   "dependencies": {
-    "@finos/calm-shared": "^0.2.2"
+    "@finos/calm-shared": "^0.2.2",
+    "react-markdown": "^10.1.0"
   },
   "overrides": {
     "esbuild": "^0.25.0"

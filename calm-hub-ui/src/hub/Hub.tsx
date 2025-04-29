@@ -27,6 +27,7 @@ import {
     fetchAdrIDs,
 } from '../service/calm-service.js';
 import { Navbar } from '../components/navbar/Navbar.js';
+import { AdrRenderer } from './components/adr-view.js';
 
 function Hub() {
     const [namespaces, setNamespaces] = useState<Namespace[]>([]);
@@ -195,7 +196,7 @@ function Hub() {
                 {currentCalmType !== 'ADRs' ? (
                     <JsonRenderer jsonString={data} />
                 ) : (
-                    <div> hello </div>
+                    <AdrRenderer jsonString={data} />
                 )}
             </div>
         </>

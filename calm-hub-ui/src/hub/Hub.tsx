@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
 import { ValueTable } from './components/value-table.js';
 import { JsonRenderer } from './components/json-view.js';
-import { Namespace, PatternID, FlowID, ArchitectureID, Version, Data } from '../model/calm.js';
+import {
+    Namespace,
+    PatternID,
+    FlowID,
+    ArchitectureID,
+    Version,
+    Data,
+    Revision,
+    AdrID,
+} from '../model/calm.js';
 import {
     fetchNamespaces,
     fetchPatternIDs,
@@ -10,9 +19,12 @@ import {
     fetchPatternVersions,
     fetchFlowVersions,
     fetchArchitectureVersions,
+    fetchAdrRevisions,
     fetchPattern,
     fetchFlow,
     fetchArchitecture,
+    fetchAdr,
+    fetchAdrIDs,
 } from '../service/calm-service.js';
 import { Navbar } from '../components/navbar/Navbar.js';
 
@@ -22,12 +34,15 @@ function Hub() {
     const [patternIDs, setPatternIDs] = useState<PatternID[]>([]);
     const [flowIDs, setFlowIDs] = useState<FlowID[]>([]);
     const [architectureIDs, setArchitectureIDs] = useState<ArchitectureID[]>([]);
+    const [adrIDs, setAdrIDs] = useState<AdrID[]>([]);
     const [currentPatternOrFlowID, setCurrentPatternOrFlowID] = useState<string | undefined>();
     const [currentVersion, setCurrentVersion] = useState<Version | undefined>();
+    const [currentRevision, setCurrentRevision] = useState<Revision | undefined>();
     const [currentCalmType, setCurrentCalmType] = useState<string | undefined>();
 
     const [data, setData] = useState<Data | undefined>();
     const [versions, setVersions] = useState<Version[]>([]);
+    const [revisions, setRevisions] = useState<Revision[]>([]);
 
     useEffect(() => {
         fetchNamespaces(setNamespaces);
@@ -51,17 +66,28 @@ function Hub() {
             fetchPatternIDs(currentNamespace!, setPatternIDs);
             setFlowIDs([]);
             setArchitectureIDs([]);
+            setAdrIDs([]);
         } else if (calmType === 'Flows') {
             fetchFlowIDs(currentNamespace!, setFlowIDs);
             setPatternIDs([]);
             setArchitectureIDs([]);
+            setAdrIDs([]);
         } else if (calmType === 'Architectures') {
             fetchArchitectureIDs(currentNamespace!, setArchitectureIDs);
+            setPatternIDs([]);
+            setFlowIDs([]);
+            setAdrIDs([]);
+        } else if (calmType === 'ADRs') {
+            fetchAdrIDs(currentNamespace!, setAdrIDs);
+            console.log('ADR IDS ARE: ', adrIDs);
+            setRevisions([]);
+            setArchitectureIDs([]);
             setPatternIDs([]);
             setFlowIDs([]);
         }
         setVersions([]);
         setData(undefined);
+        console.log('ARCHITECTURE IDS ARE: ', architectureIDs);
     };
 
     const handlePatternOrFlowSelection = (selectedID: string) => {
@@ -73,6 +99,8 @@ function Hub() {
             fetchFlowVersions(currentNamespace!, selectedID, setVersions);
         } else if (currentCalmType === 'Architectures') {
             fetchArchitectureVersions(currentNamespace!, selectedID, setVersions);
+        } else if (currentCalmType === 'ADRs') {
+            fetchAdrRevisions(currentNamespace!, selectedID, setRevisions);
         }
     };
 
@@ -93,6 +121,14 @@ function Hub() {
         }
     };
 
+    const handleRevisionSelection = (revision: Revision) => {
+        setCurrentRevision(revision);
+
+        if (currentCalmType === 'ADRs') {
+            fetchAdr(currentNamespace || '', currentPatternOrFlowID || '', revision, setData);
+        }
+    };
+
     return (
         <>
             <Navbar />
@@ -107,7 +143,7 @@ function Hub() {
                     {currentNamespace && (
                         <ValueTable
                             header="Calm Type"
-                            values={['Architectures', 'Patterns', 'Flows']}
+                            values={['Architectures', 'Patterns', 'Flows', 'ADRs']}
                             callback={handleCalmTypeSelection}
                             currentValue={currentCalmType}
                         />
@@ -120,30 +156,47 @@ function Hub() {
                                     ? 'Patterns'
                                     : currentCalmType === 'Flows'
                                       ? 'Flows'
-                                      : 'Architectures'
+                                      : currentCalmType === 'Architectures'
+                                        ? 'Architectures'
+                                        : 'ADRs'
                             }
                             values={
                                 currentCalmType === 'Patterns'
                                     ? patternIDs
                                     : currentCalmType === 'Flows'
                                       ? flowIDs
-                                      : architectureIDs
+                                      : currentCalmType === 'Architectures'
+                                        ? architectureIDs
+                                        : adrIDs
                             }
                             callback={handlePatternOrFlowSelection}
                             currentValue={currentPatternOrFlowID}
                         />
                     )}
 
-                    {currentNamespace && currentCalmType && (
-                        <ValueTable
-                            header="Versions"
-                            values={versions}
-                            callback={handleVersionSelection}
-                            currentValue={currentVersion}
-                        />
-                    )}
+                    {currentNamespace &&
+                        currentCalmType &&
+                        (currentCalmType !== 'ADRs' ? (
+                            <ValueTable
+                                header="Versions"
+                                values={versions}
+                                callback={handleVersionSelection}
+                                currentValue={currentVersion}
+                            />
+                        ) : (
+                            <ValueTable
+                                header="Revisions"
+                                values={revisions}
+                                callback={handleRevisionSelection}
+                                currentValue={currentRevision}
+                            />
+                        ))}
                 </div>
-                <JsonRenderer jsonString={data} />
+                {currentCalmType !== 'ADRs' ? (
+                    <JsonRenderer jsonString={data} />
+                ) : (
+                    <div> hello </div>
+                )}
             </div>
         </>
     );

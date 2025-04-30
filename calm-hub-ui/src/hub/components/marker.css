@@ -1,0 +1,25 @@
+ul {
+    list-style: none;
+}
+
+.marker-negative::before {
+    content: '- ';
+    font-size: 100%;
+    font-weight: bold;
+    color: red;
+}
+
+.marker-positive::before {
+    content: '+ ';
+    font-size: 100%;
+    font-weight: bold;
+    color: green;
+}
+
+/* .collapse {
+    visibility: visible;
+}
+
+.collapse-content {
+    visibility: hidden;
+} */

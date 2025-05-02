@@ -23,3 +23,7 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+.markdownParagraphSpacing p {
+    margin-bottom: 1.5% !important;
+}

@@ -2605,50 +2605,60 @@ db.adrs.insertMany([
                         status: 'draft',
                         creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
                         updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
-                        contextAndProblemStatement: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  
-                        
-*Lorem ipsum dolor sit amet*, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
+                        contextAndProblemStatement: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.  \
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+     
+[Image here]\  
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  \n  \nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        `,
                         decisionDrivers: [
-                            'Example of a decision driver (one)',
-                            'Example of a decision driver (two)',
+                            'Lorem ipsum dolor sit amet.',
+                            'Consectetur adipiscing elit.',
+                            'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                         ],
                         consideredOptions: [
                             {
-                                name: 'Making a table',
-                                description:
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                name: 'Making a table to display the considered options',
+                                description: `Lorem ipsum dolor sit amet, **consectetur adipiscing elit**, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex *ea commodo consequat*. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
                                 positiveConsequences: [
-                                    'Looks better than current design',
+                                    'Is compact',
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
                                 ],
                                 negativeConsequences: [
                                     'Very little reusable code',
                                     'Have to set the border of each cell',
+                                    'Both the positive and negative consequesnces are both lists so this will not display nicely',
                                 ],
                             },
                             {
-                                name: 'Using a collabsible list',
+                                name: 'Using a collabsible list to display the considered options',
                                 description:
                                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                                 positiveConsequences: [
                                     'Looks much better than current design',
+                                    'Screen will look less cluttered',
                                 ],
                                 negativeConsequences: [
-                                    'Harder to code',
                                     'Daisy UI will not play ball',
                                 ],
                             },
                         ],
                         decisionOutcome: {
                             chosenOption: {
-                                name: 'Using a collabsible list',
+                                name: 'Using a collabsible list  to display the considered options',
                                 description:
                                     'Lorem ipsum dolor sit amet, **consectetur adipiscing elit, sed do eiusmod tempor incididunt** ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                                 positiveConsequences: [
                                     'Looks much better than current design',
-                                    'More compact view',
+                                    'Screen will look less cluttered',
                                 ],
                                 negativeConsequences: [
-                                    'Harder to code',
                                     'Daisy UI will not play ball',
                                 ],
                             },
@@ -2656,8 +2666,11 @@ db.adrs.insertMany([
                                 'It looks much nicer than the current design and allows users to collapse and exand options at will',
                         },
                         links: [
-                            { rel: 'My Link', href: 'http://my-link.com' },
-                            { rel: 'My Link Two', href: 'http://my-link.com' },
+                            { rel: 'Daisy UI', href: 'http://my-link.com' },
+                            {
+                                rel: 'Suggested table design',
+                                href: 'http://my-link.com',
+                            },
                         ],
                     },
                 },

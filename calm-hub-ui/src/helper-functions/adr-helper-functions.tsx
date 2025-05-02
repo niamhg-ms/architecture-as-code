@@ -22,7 +22,7 @@ export function displayLinks(links: Link[]) {
     let returnList = [];
     for (var link of links) {
         returnList.push(
-            <li key={link.rel} className="list-row">
+            <li key={link.rel} className="ms-3 list-row">
                 <a href={link.href} rel={link.rel} target="_blank" className="underline">
                     {link.rel}
                 </a>
@@ -35,7 +35,11 @@ export function displayLinks(links: Link[]) {
 export function displayDecisionDrivers(drivers: string[]) {
     let returnList = [];
     for (var driver of drivers) {
-        returnList.push(<li key={driver}>{driver}</li>);
+        returnList.push(
+            <li className="ms-3" key={driver}>
+                {driver}
+            </li>
+        );
     }
     return returnList;
 }
@@ -61,19 +65,19 @@ export function displayConsideredOptions(consideredOptions: Option[]) {
     for (var consideredOption of consideredOptions) {
         returnList.push(
             <div className="pt-2">
-                <div className="border border-l-4 border-black-500 p-2">
+                <div className="border border-l-4 border-black-500 border-l-blue-500 p-2">
                     <p className="inline font-bold">{consideredOption.name}</p>
                     <p className="inline float-right w-5"> {'^'} </p>
                 </div>
                 <div className="border border-black-500 ps-2 pb-2">
-                    <div className="pt-1 pe-2">
+                    <div className="pt-1 pe-2 markdownParagraphSpacing">
                         <Markdown>{consideredOption.description}</Markdown>
                     </div>
                     <br></br>
-                    <p> Positive Consequences:</p>
+                    <p className="font-bold"> Positive Consequences:</p>
                     {getListOfConsequences(consideredOption.positiveConsequences, true)}
                     <br></br>
-                    <p> Negative Consequences:</p>
+                    <p className="font-bold"> Negative Consequences:</p>
                     {getListOfConsequences(consideredOption.negativeConsequences, false)}
                 </div>
                 <br></br>

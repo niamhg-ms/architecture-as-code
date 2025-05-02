@@ -38,7 +38,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
             <div className="pt-5 pb-5">
                 {styleTitle('Context and Problem')}
 
-                <div className="pt-1 pe-2">
+                <div className="pt-1 pe-2 markdownParagraphSpacing">
                     <Markdown>{adr && adr!.contextAndProblemStatement}</Markdown>
                 </div>
             </div>
@@ -57,7 +57,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 {adr && displayConsideredOptions(adr!.consideredOptions)}
 
                 {/* mock up of a closed option */}
-                <div className="border  border-l-4  border-black-500 p-2 pt-2">
+                <div className="border  border-l-4 border-black-500 border-l-blue-500 p-2 pt-2">
                     <p className="inline font-bold"> Example collapsed option</p>
                     <p className="inline float-right w-5"> {'⌄'} </p>
                 </div>
@@ -68,8 +68,8 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
 
                 {adr && displayConsideredOptions([adr!.decisionOutcome.chosenOption])}
                 <br></br>
-                <p className="font-bold"> Rational:</p>
-                <div className="pt-2 pe-2">
+                <p className="p-1 font-bold"> Rational:</p>
+                <div className="p-1 pt-2 pe-2">
                     <Markdown>{adr && adr!.decisionOutcome.rationale}</Markdown>
                 </div>
             </div>
@@ -97,7 +97,6 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
         console.log('editing mode');
     }
 
-    console.log('ADR =', adrDetails);
     const content = adrDetails && adrDetails.adr ? adrView : defaultMessage;
 
     return (

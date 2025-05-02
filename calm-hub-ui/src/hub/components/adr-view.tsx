@@ -24,10 +24,10 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
     const adrView = (
         <div>
             <button
-                className="bg-blue-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded float-right"
+                className="bg-primary hover:bg-accent text-white font-bold py-2 px-4 rounded float-right"
                 onClick={handleClick}
             >
-                Edit
+                Edit ADR
             </button>
 
             <div className="font-bold inline text-3xl"> {adr && adr!.title}</div>
@@ -35,48 +35,52 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 Draft
             </div>
 
-            <div className="pt-5 pb-5">
+            <div className="mt-3 collapse">
+                <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Context and Problem')}
 
-                <div className="pt-1 pe-2 markdownParagraphSpacing">
+                <div className="collapse-content ps-0 markdownParagraphSpacing">
                     <Markdown>{adr && adr!.contextAndProblemStatement}</Markdown>
                 </div>
             </div>
 
-            <div className="pb-5">
+            <div className="mt-2 collapse">
+                <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Decision Drivers')}
 
-                <div className="pt-1 pe-2">
+                <div className="collapse-content pt-1 pe-2">
                     {adr && displayDecisionDrivers(adr!.decisionDrivers)}
                 </div>
             </div>
 
-            <div className="pb-5">
+            <div className="mt-2 collapse">
+                <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Considered Options')}
 
-                {adr && displayConsideredOptions(adr!.consideredOptions)}
-
-                {/* mock up of a closed option */}
-                <div className="border  border-l-4 border-black-500 border-l-blue-500 p-2 pt-2">
-                    <p className="inline font-bold"> Example collapsed option</p>
-                    <p className="inline float-right w-5"> {'⌄'} </p>
+                <div className="collapse-content">
+                    {adr && displayConsideredOptions(adr!.consideredOptions)}
                 </div>
             </div>
 
-            <div className="pb-5">
+            <div className="mt-2 collapse">
+                <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Decision Outcome')}
 
-                {adr && displayConsideredOptions([adr!.decisionOutcome.chosenOption])}
-                <br></br>
-                <p className="p-1 font-bold"> Rational:</p>
-                <div className="p-1 pt-2 pe-2">
-                    <Markdown>{adr && adr!.decisionOutcome.rationale}</Markdown>
+                <div className="collapse-content">
+                    {adr && displayConsideredOptions([adr!.decisionOutcome.chosenOption])}
+                    <br></br>
+                    <p className="font-bold"> Rational:</p>
+                    <div className="pe-2">
+                        <Markdown>{adr && adr!.decisionOutcome.rationale}</Markdown>
+                    </div>
                 </div>
             </div>
 
-            <div className="pb-5">
+            <div className="mt-2 mb-5 collapse">
+                <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Relevant Links')}
-                <div className="pt-1 pe-2"> {adr && displayLinks(adr!.links)} </div>
+
+                <div className="pt-1 pe-2 collapse-content">{adr && displayLinks(adr!.links)}</div>
             </div>
 
             <div className="italic">

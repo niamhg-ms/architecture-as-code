@@ -4,7 +4,11 @@ import Markdown from 'react-markdown';
 import './marker.css';
 
 export function styleTitle(title: string) {
-    return <p className="font-bold border-b border-blue-200 text-lg text-blue-500"> {title} </p>;
+    return (
+        <p className="ps-1 pb-1 font-bold border-b border-accent-200 text-lg text-blue-400/100 collapse-title peer-checked:border-l-4 peer-checked:text-accent peer-checked:border-blue-500 m-auto p-0 min-h-auto">
+            {title}
+        </p>
+    );
 }
 
 export function getDate(date: string) {
@@ -12,7 +16,7 @@ export function getDate(date: string) {
 
     return (
         <div className="font-bold inline">
-            {newDate.getDate()} {newDate.toLocaleString('default', { month: 'short' })},{' '}
+            {newDate.getDate()} {newDate.toLocaleString('default', { month: 'short' })},
             {newDate.getFullYear()} <p className="inline font-normal">at</p> {newDate.getHours()}:
             {newDate.getMinutes()}
         </div>
@@ -65,22 +69,22 @@ export function displayConsideredOptions(consideredOptions: Option[]) {
     for (var consideredOption of consideredOptions) {
         returnList.push(
             <div className="pt-2">
-                <div className="border border-l-4 border-black-500 border-l-blue-500 p-2">
-                    <p className="inline font-bold">{consideredOption.name}</p>
-                    <p className="inline float-right w-5"> {'^'} </p>
-                </div>
-                <div className="border border-black-500 ps-2 pb-2">
-                    <div className="pt-1 pe-2 markdownParagraphSpacing">
-                        <Markdown>{consideredOption.description}</Markdown>
+                <div className="collapse collapse-arrow border border-l-4 border-gray-300 border-l-blue-500 p-1">
+                    <input type="checkbox" />
+                    <div className="collapse-title font-bold">{consideredOption.name}</div>
+
+                    <div className="collapse-content border-t border-gray-300">
+                        <div className=" pt-1 pe-2 markdownParagraphSpacing">
+                            <Markdown>{consideredOption.description}</Markdown>
+                        </div>
+                        <br></br>
+                        <p className="font-bold"> Positive Consequences:</p>
+                        {getListOfConsequences(consideredOption.positiveConsequences, true)}
+                        <br></br>
+                        <p className="font-bold"> Negative Consequences:</p>
+                        {getListOfConsequences(consideredOption.negativeConsequences, false)}
                     </div>
-                    <br></br>
-                    <p className="font-bold"> Positive Consequences:</p>
-                    {getListOfConsequences(consideredOption.positiveConsequences, true)}
-                    <br></br>
-                    <p className="font-bold"> Negative Consequences:</p>
-                    {getListOfConsequences(consideredOption.negativeConsequences, false)}
                 </div>
-                <br></br>
             </div>
         );
     }

@@ -2605,11 +2605,12 @@ db.adrs.insertMany([
                         status: 'draft',
                         creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
                         updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
-                        contextAndProblemStatement:
-                            'This is the problem and context statement',
+                        contextAndProblemStatement: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  
+                        
+*Lorem ipsum dolor sit amet*, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
                         decisionDrivers: [
-                            'decision driver 1',
-                            'decision driver 1',
+                            'Example of a decision driver (one)',
+                            'Example of a decision driver (two)',
                         ],
                         consideredOptions: [
                             {
@@ -2621,20 +2622,43 @@ db.adrs.insertMany([
                                 ],
                                 negativeConsequences: [
                                     'Very little reusable code',
-                                    'have to set the border of each cell',
+                                    'Have to set the border of each cell',
+                                ],
+                            },
+                            {
+                                name: 'Using a collabsible list',
+                                description:
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                positiveConsequences: [
+                                    'Looks much better than current design',
+                                ],
+                                negativeConsequences: [
+                                    'Harder to code',
+                                    'Daisy UI will not play ball',
                                 ],
                             },
                         ],
                         decisionOutcome: {
                             chosenOption: {
-                                name: 'option1',
-                                description: 'best option',
-                                positiveConsequences: ['positive'],
-                                negativeConsequences: ['negative'],
+                                name: 'Using a collabsible list',
+                                description:
+                                    'Lorem ipsum dolor sit amet, **consectetur adipiscing elit, sed do eiusmod tempor incididunt** ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                positiveConsequences: [
+                                    'Looks much better than current design',
+                                    'More compact view',
+                                ],
+                                negativeConsequences: [
+                                    'Harder to code',
+                                    'Daisy UI will not play ball',
+                                ],
                             },
-                            rationale: 'it was the best',
+                            rationale:
+                                'It looks much nicer than the current design and allows users to collapse and exand options at will',
                         },
-                        links: [{ rel: 'My Link', href: 'http://my-link.com' }],
+                        links: [
+                            { rel: 'My Link', href: 'http://my-link.com' },
+                            { rel: 'My Link Two', href: 'http://my-link.com' },
+                        ],
                     },
                 },
             },

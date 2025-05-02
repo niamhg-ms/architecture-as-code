@@ -1,89 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-import { allExpanded, defaultStyles, JsonView } from 'react-json-view-lite';
 import 'react-json-view-lite/dist/index.css';
 import { Adr } from '../../model/calm.js';
 import Markdown from 'react-markdown';
-import { Option } from '../../model/adr/option.js';
-import { Link } from '../../model/adr/link.js';
-import './marker.css';
+import {
+    displayConsideredOptions,
+    displayDecisionDrivers,
+    displayLinks,
+    getDate,
+} from '../../helper-functions/adr-helper-functions.js';
 
 interface JsonRendererProps {
     jsonString: Adr | undefined;
-}
-
-function getDate(date: string) {
-    let newDate = new Date(date);
-
-    return (
-        <div className="inline">
-            {newDate.getDate()} {newDate.toLocaleString('default', { month: 'short' })},{' '}
-            {newDate.getFullYear()} <p className="inline font-normal">at</p> {newDate.getHours()}:
-            {newDate.getMinutes()}
-        </div>
-    );
-}
-function displayLinks(links: Link[]) {
-    let returnList = [];
-    for (var link of links) {
-        returnList.push(
-            <li key={link.rel} className="list-row">
-                <a href={link.href} rel={link.rel} target="_blank" className="underline">
-                    {link.rel}
-                </a>
-            </li>
-        );
-    }
-    return returnList;
-}
-
-function displayDecisionDrivers(drivers: string[]) {
-    let returnList = [];
-    for (var driver of drivers) {
-        returnList.push(<li key={driver}>{driver}</li>);
-    }
-    return returnList;
-}
-
-function getListOfConsequences(consequences: string[], positive: boolean) {
-    let returnList = [];
-    console.log('CONSEQUENCES', consequences);
-    let bulletStyling = 'ps-4 marker-negative list-none';
-    if (positive) {
-        bulletStyling = 'ps-4 marker-positive list-none';
-    }
-    for (var i = 0; i < consequences.length; i++) {
-        returnList.push(
-            <li key={consequences[i].valueOf()} className={bulletStyling}>
-                {consequences[i].valueOf()}
-            </li>
-        );
-    }
-    return returnList;
-}
-
-function displayConsideredOptions(consideredOptions: Option[]) {
-    let returnList = [];
-    for (var consideredOption of consideredOptions) {
-        returnList.push(
-            <div className="pt-1">
-                <div>
-                    <p className="inline font-bold">
-                        {consideredOption.name} {'>'} (daisy ui collabsible?)
-                    </p>
-                </div>
-                <div className="ps-2">
-                    <p> {consideredOption.description} </p>
-                    <br></br>
-                    <p> Positive Consequences:</p>
-                    {getListOfConsequences(consideredOption.positiveConsequences, true)}
-                    <br></br>
-                    <p> Negative Consequences:</p>
-                    {getListOfConsequences(consideredOption.negativeConsequences, false)}
-                </div>
-            </div>
-        );
-    }
-    return returnList;
 }
 
 export function AdrRenderer({ jsonString }: JsonRendererProps) {
@@ -132,6 +58,12 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
                     Considered Options
                 </p>
                 {adr && displayConsideredOptions(adr!.consideredOptions)}
+
+                {/* mock up of a closed option */}
+                <div className="border  border-l-4  border-black-500 p-2 pt-2">
+                    <p className="inline font-bold"> Example collapsed option</p>
+                    <p className="inline float-right w-5"> {'⌄'} </p>
+                </div>
             </div>
 
             <div className="pb-5">
@@ -140,7 +72,7 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
                 </p>
                 {adr && displayConsideredOptions([adr!.decisionOutcome.chosenOption])}
                 <br></br>
-                <p> Rational: (prettify) </p>
+                <p className="font-bold"> Rational:</p>
                 <div className="pt-2 pe-2">
                     <Markdown>{adr && adr!.decisionOutcome.rationale}</Markdown>
                 </div>

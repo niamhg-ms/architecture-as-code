@@ -19,13 +19,11 @@ import {
     fetchPatternVersions,
     fetchFlowVersions,
     fetchArchitectureVersions,
-    fetchAdrRevisions,
     fetchPattern,
     fetchFlow,
     fetchArchitecture,
-    fetchAdr,
-    fetchAdrIDs,
 } from '../service/calm-service.js';
+import{fetchAdrRevisions, fetchAdrIDs, fetchAdr} from '../service/adr-service.js';
 import { Navbar } from '../components/navbar/Navbar.js';
 import { AdrRenderer } from './components/adr-view.js';
 

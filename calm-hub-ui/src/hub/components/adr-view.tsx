@@ -6,22 +6,22 @@ import {
     displayDecisionDrivers,
     displayLinks,
     getDate,
+    styleTitle,
 } from '../../helper-functions/adr-helper-functions.js';
 
-interface JsonRendererProps {
-    jsonString: Adr | undefined;
+interface AdrRendererProps {
+    adrDetails: Adr | undefined;
 }
 
-export function AdrRenderer({ jsonString }: JsonRendererProps) {
+export function AdrRenderer({ adrDetails }: AdrRendererProps) {
     const defaultMessage = <div className="text-center">Please select an ADR to load</div>;
     let adr = undefined;
-    console.log(jsonString);
 
-    if (jsonString !== undefined) {
-        adr = jsonString?.adr;
+    if (adrDetails !== undefined) {
+        adr = adrDetails?.adr;
     }
 
-    const jsonView = (
+    const adrView = (
         <div>
             <button
                 className="bg-blue-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded float-right"
@@ -36,27 +36,24 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
             </div>
 
             <div className="pt-5 pb-5">
-                <p className="font-bold border-b border-blue-200 text-lg text-blue-500">
-                    Context and Problem
-                </p>
+                {styleTitle('Context and Problem')}
+
                 <div className="pt-1 pe-2">
                     <Markdown>{adr && adr!.contextAndProblemStatement}</Markdown>
                 </div>
             </div>
 
             <div className="pb-5">
-                <p className="font-bold border-b border-blue-200 text-lg text-blue-500">
-                    Decision Drivers
-                </p>
+                {styleTitle('Decision Drivers')}
+
                 <div className="pt-1 pe-2">
                     {adr && displayDecisionDrivers(adr!.decisionDrivers)}
                 </div>
             </div>
 
             <div className="pb-5">
-                <p className="font-bold border-b border-blue-200 text-lg text-blue-500">
-                    Considered Options
-                </p>
+                {styleTitle('Considered Options')}
+
                 {adr && displayConsideredOptions(adr!.consideredOptions)}
 
                 {/* mock up of a closed option */}
@@ -67,9 +64,8 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
             </div>
 
             <div className="pb-5">
-                <p className="font-bold border-b border-blue-200 text-lg text-blue-500">
-                    Decision Outcome
-                </p>
+                {styleTitle('Decision Outcome')}
+
                 {adr && displayConsideredOptions([adr!.decisionOutcome.chosenOption])}
                 <br></br>
                 <p className="font-bold"> Rational:</p>
@@ -79,18 +75,18 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
             </div>
 
             <div className="pb-5">
-                <p className="font-bold border-b border-blue-200 text-lg text-blue-500"> Links </p>
+                {styleTitle('Relevant Links')}
                 <div className="pt-1 pe-2"> {adr && displayLinks(adr!.links)} </div>
             </div>
 
             <div className="italic">
                 <div>
-                    Created on
-                    <p className="font-bold inline"> {adr && getDate(adr.creationDateTime)}</p>
+                    <p className="inline"> Created on </p>
+                    {adr && getDate(adr.creationDateTime)}
                 </div>
                 <div>
-                    Last updated on
-                    <p className="font-bold inline"> {adr && getDate(adr.updateDateTime)}</p>
+                    <p className="inline"> Last updated on </p>
+                    {adr && getDate(adr.updateDateTime)}
                 </div>
             </div>
         </div>
@@ -101,7 +97,8 @@ export function AdrRenderer({ jsonString }: JsonRendererProps) {
         console.log('editing mode');
     }
 
-    const content = jsonString && jsonString.adr ? jsonView : defaultMessage;
+    console.log('ADR =', adrDetails);
+    const content = adrDetails && adrDetails.adr ? adrView : defaultMessage;
 
     return (
         <div className="p-5 flex-1 overflow-auto border-l-2 border-black bg-white">{content}</div>

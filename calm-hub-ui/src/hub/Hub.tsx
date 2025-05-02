@@ -196,7 +196,7 @@ function Hub() {
                 {currentCalmType !== 'ADRs' ? (
                     <JsonRenderer jsonString={data} />
                 ) : (
-                    <AdrRenderer jsonString={data} />
+                    <AdrRenderer adrDetails={data} />
                 )}
             </div>
         </>

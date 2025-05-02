@@ -3,11 +3,15 @@ import { Link } from '../model/adr/link.js';
 import Markdown from 'react-markdown';
 import './marker.css';
 
+export function styleTitle(title: string) {
+    return <p className="font-bold border-b border-blue-200 text-lg text-blue-500"> {title} </p>;
+}
+
 export function getDate(date: string) {
     let newDate = new Date(date);
 
     return (
-        <div className="inline">
+        <div className="font-bold inline">
             {newDate.getDate()} {newDate.toLocaleString('default', { month: 'short' })},{' '}
             {newDate.getFullYear()} <p className="inline font-normal">at</p> {newDate.getHours()}:
             {newDate.getMinutes()}

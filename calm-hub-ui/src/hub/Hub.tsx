@@ -23,7 +23,7 @@ import {
     fetchFlow,
     fetchArchitecture,
 } from '../service/calm-service.js';
-import{fetchAdrRevisions, fetchAdrIDs, fetchAdr} from '../service/adr-service.js';
+import { fetchAdrRevisions, fetchAdrIDs, fetchAdr } from '../service/adr-service.js';
 import { Navbar } from '../components/navbar/Navbar.js';
 import { AdrRenderer } from './components/adr-view.js';
 

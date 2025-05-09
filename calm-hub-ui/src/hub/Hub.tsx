@@ -57,6 +57,7 @@ function Hub() {
         setVersions([]);
         setCurrentCalmType(undefined);
         setData(undefined);
+        setAdrData(undefined);
         setCurrentNamespace(namespace);
         fetchPatternIDs(namespace, setPatternIDs);
     };
@@ -81,8 +82,6 @@ function Hub() {
             setAdrIDs([]);
         } else if (calmType === 'ADRs') {
             adrService.fetchAdrIDs(currentNamespace!).then((res) => setAdrIDs(res));
-
-            console.log('ADR IDS ARE: ', adrIDs);
             setRevisions([]);
             setArchitectureIDs([]);
             setPatternIDs([]);
@@ -90,6 +89,7 @@ function Hub() {
         }
         setVersions([]);
         setData(undefined);
+        setAdrData(undefined);
     };
 
     const handlePatternOrFlowSelection = async (selectedID: string) => {
@@ -123,6 +123,7 @@ function Hub() {
                 setData
             );
         }
+        setAdrData(undefined);
     };
 
     const handleRevisionSelection = async (revision: Revision) => {
@@ -132,6 +133,7 @@ function Hub() {
             adrService
                 .fetchAdr(currentNamespace || '', currentPatternOrFlowID || '', revision)
                 .then((res) => setAdrData(res));
+            setData(undefined);
         }
     };
 

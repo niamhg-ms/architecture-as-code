@@ -1,74 +1,67 @@
-import {
-    Data,
-    Revision,
-    AdrID,
-} from '../model/calm.js';
+import axios, { AxiosInstance } from 'axios';
 import { getToken } from '../authService.js';
 
+export class AdrService {
+    private readonly ax: AxiosInstance;
 
-/**
- * Fetch adr IDs for a given namespace and set them using the provided setter function.
- */
-export async function fetchAdrIDs(namespace: string, setAdrIDs: (adrIDs: AdrID[]) => void) {
-    try {
-        const accessToken = await getToken();
-        const res = await fetch(`/calm/namespaces/${namespace}/adrs`, {
-            method: 'GET',
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        const data = await res.json();
-        setAdrIDs(data.values);
-    } catch (error) {
-        console.error(`Error fetching adr IDs for namespace ${namespace}:`, error);
+    constructor(axiosInstance?: AxiosInstance) {
+        if (axiosInstance) {
+            this.ax = axiosInstance;
+        } else {
+            this.ax = axios.create();
+        }
     }
-}
-
-/**
- * Fetch revisions for a given namespace and adr ID and set them using the provided setter function.
- */
-export async function fetchAdrRevisions(
-    namespace: string,
-    adrID: string,
-    setAdrRevisions: (adrRevisions: Revision[]) => void
-) {
-    try {
-        const accessToken = await getToken();
-        const res = await fetch(`/calm/namespaces/${namespace}/adrs/${adrID}/revisions`, {
-            method: 'GET',
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
-        const data = await res.json();
-        setAdrRevisions(data.values);
-    } catch (error) {
-        console.error(`Error fetching revisions for ADR ID ${adrID}:`, error);
+    /**
+     * Fetch adr IDs for a given namespace and set them using the provided setter function.
+     */
+    async fetchAdrIDs(namespace: string) {
+        return this.ax
+            .get(`/calm/namespaces/${namespace}/adrs`, {
+                headers: {
+                    Authorization: `Bearer ${await getToken()}`,
+                },
+            })
+            .then((res) => res.data.values)
+            .catch((error) => {
+                const errorMessage = `Error fetching adr IDs for namespace ${namespace}:`;
+                console.error(errorMessage, error);
+                return Promise.reject(new Error(errorMessage));
+            });
     }
-}
 
-/**
- * Fetch a specific adr by namespace, adr ID, and revision, and set it using the provided setter function.
- */
-export async function fetchAdr(
-    namespace: string,
-    adrID: string,
-    revision: string,
-    setAdr: (adr: Data) => void
-) {
-    try {
-        const accessToken = await getToken();
-        const res = await fetch(
-            `/calm/namespaces/${namespace}/adrs/${adrID}/revisions/${revision}`,
-            {
-                method: 'GET',
-                headers: { Authorization: `Bearer ${accessToken}` },
-            }
-        );
-        const response = await res.json();
+    /**
+     * Fetch revisions for a given namespace and adr ID and set them using the provided setter function.
+     */
+    async fetchAdrRevisions(namespace: string, adrID: string) {
+        return this.ax
+            .get(`/calm/namespaces/${namespace}/adrs/${adrID}/revisions`, {
+                headers: {
+                    Authorization: `Bearer ${await getToken()}`,
+                },
+            })
+            .then((res) => res.data.values)
+            .catch((error) => {
+                const errorMessage = `Error fetching revisions for ADR ID ${adrID}:`;
+                console.error(errorMessage, error);
+                return Promise.reject(new Error(errorMessage));
+            });
+    }
 
-        setAdr(response);
-    } catch (error) {
-        console.error(
-            `Error fetching adr for namespace ${namespace}, adr ID ${adrID}, revision ${revision}:`,
-            error
-        );
+    /**
+     * Fetch a specific adr by namespace, adr ID, and revision, and set it using the provided setter function.
+     */
+    async fetchAdr(namespace: string, adrID: string, revision: string) {
+        return this.ax
+            .get(`/calm/namespaces/${namespace}/adrs/${adrID}/revisions/${revision}`, {
+                headers: {
+                    Authorization: `Bearer ${await getToken()}`,
+                },
+            })
+            .then((res) => res.data)
+            .catch((error) => {
+                const errorMessage = `Error fetching adr for namespace ${namespace}, adr ID ${adrID}, revision ${revision}:`;
+                console.error(errorMessage, error);
+                return Promise.reject(new Error(errorMessage));
+            });
     }
 }

@@ -24,9 +24,9 @@ import {
     fetchFlow,
     fetchArchitecture,
 } from '../service/calm-service.js';
-import { fetchAdrRevisions, fetchAdrIDs, fetchAdr } from '../service/adr-service.js';
 import { Navbar } from '../components/navbar/Navbar.js';
 import { AdrRenderer } from './components/adr-view.js';
+import { AdrService } from '../service/adr-service.js';
 
 function Hub() {
     const [namespaces, setNamespaces] = useState<Namespace[]>([]);
@@ -44,6 +44,7 @@ function Hub() {
     const [adrData, setAdrData] = useState<Adr | undefined>();
     const [versions, setVersions] = useState<Version[]>([]);
     const [revisions, setRevisions] = useState<Revision[]>([]);
+    const adrService = new AdrService();
 
     useEffect(() => {
         fetchNamespaces(setNamespaces);
@@ -60,7 +61,7 @@ function Hub() {
         fetchPatternIDs(namespace, setPatternIDs);
     };
 
-    const handleCalmTypeSelection = (calmType: string) => {
+    const handleCalmTypeSelection = async (calmType: string) => {
         setCurrentCalmType(calmType);
 
         if (calmType === 'Patterns') {
@@ -79,7 +80,9 @@ function Hub() {
             setFlowIDs([]);
             setAdrIDs([]);
         } else if (calmType === 'ADRs') {
-            fetchAdrIDs(currentNamespace!, setAdrIDs);
+            adrService.fetchAdrIDs(currentNamespace!).then((res) => setAdrIDs(res));
+
+            console.log('ADR IDS ARE: ', adrIDs);
             setRevisions([]);
             setArchitectureIDs([]);
             setPatternIDs([]);
@@ -89,7 +92,7 @@ function Hub() {
         setData(undefined);
     };
 
-    const handlePatternOrFlowSelection = (selectedID: string) => {
+    const handlePatternOrFlowSelection = async (selectedID: string) => {
         setCurrentPatternOrFlowID(selectedID);
 
         if (currentCalmType === 'Patterns') {
@@ -99,7 +102,9 @@ function Hub() {
         } else if (currentCalmType === 'Architectures') {
             fetchArchitectureVersions(currentNamespace!, selectedID, setVersions);
         } else if (currentCalmType === 'ADRs') {
-            fetchAdrRevisions(currentNamespace!, selectedID, setRevisions);
+            adrService
+                .fetchAdrRevisions(currentNamespace!, selectedID)
+                .then((res) => setRevisions(res));
         }
     };
 
@@ -120,11 +125,13 @@ function Hub() {
         }
     };
 
-    const handleRevisionSelection = (revision: Revision) => {
+    const handleRevisionSelection = async (revision: Revision) => {
         setCurrentRevision(revision);
 
         if (currentCalmType === 'ADRs') {
-            fetchAdr(currentNamespace || '', currentPatternOrFlowID || '', revision, setAdrData);
+            adrService
+                .fetchAdr(currentNamespace || '', currentPatternOrFlowID || '', revision)
+                .then((res) => setData(res));
         }
     };
 

@@ -131,7 +131,7 @@ function Hub() {
         if (currentCalmType === 'ADRs') {
             adrService
                 .fetchAdr(currentNamespace || '', currentPatternOrFlowID || '', revision)
-                .then((res) => setData(res));
+                .then((res) => setAdrData(res));
         }
     };
 

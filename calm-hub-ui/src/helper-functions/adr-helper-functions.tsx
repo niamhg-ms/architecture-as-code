@@ -2,10 +2,11 @@ import { Option } from '../model/adr/option.js';
 import { Link } from '../model/adr/link.js';
 import Markdown from 'react-markdown';
 import './marker.css';
+import { Decision } from '../model/adr/decision.js';
 
 export function styleTitle(title: string) {
     return (
-        <p className="ps-1 pb-1 font-bold border-b border-accent-200 text-lg text-blue-400/100 collapse-title peer-checked:border-l-4 peer-checked:text-accent peer-checked:border-blue-500 m-auto p-0 min-h-auto">
+        <p className="pb-1 font-bold border-b text-lg text-blue-400/100 collapse-title peer-checked:text-accent m-auto p-0 min-h-auto">
             {title}
         </p>
     );
@@ -16,7 +17,7 @@ export function getDate(date: string) {
 
     return (
         <div className="font-bold inline">
-            {newDate.getDate()} {newDate.toLocaleString('default', { month: 'short' })},
+            {newDate.getDate()} {newDate.toLocaleString('default', { month: 'short' })},{' '}
             {newDate.getFullYear()} <p className="inline font-normal">at</p> {newDate.getHours()}:
             {newDate.getMinutes()}
         </div>
@@ -89,4 +90,27 @@ export function displayConsideredOptions(consideredOptions: Option[]) {
         );
     }
     return returnList;
+}
+
+export function displayChosenOption(decisionOutcome: Decision) {
+    return (
+        <div className="pt-2">
+            <p className="font-bold pb-1">{decisionOutcome.chosenOption.name}</p>
+
+            <div className=" pt-1 pb-1 pe-2 markdownParagraphSpacing">
+                <Markdown>{decisionOutcome.chosenOption.description}</Markdown>
+            </div>
+
+            <p className="font-bold"> Positive Consequences:</p>
+            {getListOfConsequences(decisionOutcome.chosenOption.positiveConsequences, true)}
+
+            <p className="font-bold mt-4"> Negative Consequences:</p>
+            {getListOfConsequences(decisionOutcome.chosenOption.negativeConsequences, false)}
+
+            <p className="font-bold mt-4"> Decision Rational:</p>
+            <div className="pe-1">
+                <Markdown>{decisionOutcome.rationale}</Markdown>
+            </div>
+        </div>
+    );
 }

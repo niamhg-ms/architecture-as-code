@@ -2,12 +2,14 @@ import 'react-json-view-lite/dist/index.css';
 import { Adr } from '../../model/calm.js';
 import Markdown from 'react-markdown';
 import {
+    displayChosenOption,
     displayConsideredOptions,
     displayDecisionDrivers,
     displayLinks,
     getDate,
     styleTitle,
 } from '../../helper-functions/adr-helper-functions.js';
+import { displayAdrStatus } from '../../model/adr/adr-status.js';
 
 interface AdrRendererProps {
     adrDetails: Adr | undefined;
@@ -30,10 +32,8 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 Edit ADR
             </button>
 
-            <div className="font-bold inline text-3xl"> {adr && adr!.title}</div>
-            <div className="inline bg-orange-500 w-15 rounded-full text-center text-xs p-1 ms-3 text-white font-bold">
-                Draft
-            </div>
+            <div className="font-bold inline text-4xl"> {adr && adr!.title}</div>
+            {adr && adr!.status && displayAdrStatus(adr && adr!.status)}
 
             <div className="mt-3 collapse">
                 <input type="checkbox" defaultChecked className="peer" />
@@ -66,13 +66,8 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Decision Outcome')}
 
-                <div className="collapse-content">
-                    {adr && displayConsideredOptions([adr!.decisionOutcome.chosenOption])}
-                    <br></br>
-                    <p className="font-bold"> Rational:</p>
-                    <div className="pe-2">
-                        <Markdown>{adr && adr!.decisionOutcome.rationale}</Markdown>
-                    </div>
+                <div className="collapse-content ps-0">
+                    {adr && displayChosenOption(adr!.decisionOutcome)}
                 </div>
             </div>
 
@@ -83,7 +78,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 <div className="pt-1 pe-2 collapse-content">{adr && displayLinks(adr!.links)}</div>
             </div>
 
-            <div className="italic">
+            <div className="italic  text-xs">
                 <div>
                     <p className="inline"> Created on </p>
                     {adr && getDate(adr.creationDateTime)}

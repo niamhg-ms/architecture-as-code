@@ -2637,7 +2637,7 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
                                 ],
                             },
                             {
-                                name: 'Using a collabsible list to display the considered options',
+                                name: 'Using a collapsible list to display the considered options',
                                 description:
                                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                                 positiveConsequences: [
@@ -2651,7 +2651,7 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
                         ],
                         decisionOutcome: {
                             chosenOption: {
-                                name: 'Using a collabsible list  to display the considered options',
+                                name: 'Using a collapsible list  to display the considered options',
                                 description:
                                     'Lorem ipsum dolor sit amet, **consectetur adipiscing elit, sed do eiusmod tempor incididunt** ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                                 positiveConsequences: [
@@ -2673,14 +2673,154 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
                             },
                         ],
                     },
+                    2: {
+                        title: 'ADR - 1',
+                        status: 'proposed',
+                        creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
+                        updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
+                        contextAndProblemStatement: 'placeholder',
+                        decisionDrivers: ['placeholder'],
+                        consideredOptions: [
+                            {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                        ],
+                        decisionOutcome: {
+                            chosenOption: {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                            rationale: 'placeholder',
+                        },
+                        links: [
+                            { rel: 'placeholder', href: 'http://my-link.com' },
+                        ],
+                    },
+                    3: {
+                        title: 'ADR - 1',
+                        status: 'accepted',
+                        creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
+                        updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
+                        contextAndProblemStatement: 'placeholder',
+                        decisionDrivers: ['placeholder'],
+                        consideredOptions: [
+                            {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                        ],
+                        decisionOutcome: {
+                            chosenOption: {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                            rationale: 'placeholder',
+                        },
+                        links: [
+                            { rel: 'placeholder', href: 'http://my-link.com' },
+                        ],
+                    },
+                    4: {
+                        title: 'ADR - 1',
+                        status: 'superseded',
+                        creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
+                        updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
+                        contextAndProblemStatement: 'placeholder',
+                        decisionDrivers: ['placeholder'],
+                        consideredOptions: [
+                            {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                        ],
+                        decisionOutcome: {
+                            chosenOption: {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                            rationale: 'placeholder',
+                        },
+                        links: [
+                            { rel: 'placeholder', href: 'http://my-link.com' },
+                        ],
+                    },
+                    5: {
+                        title: 'ADR - 1',
+                        status: 'rejected',
+                        creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
+                        updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
+                        contextAndProblemStatement: 'placeholder',
+                        decisionDrivers: ['placeholder'],
+                        consideredOptions: [
+                            {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                        ],
+                        decisionOutcome: {
+                            chosenOption: {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                            rationale: 'placeholder',
+                        },
+                        links: [
+                            { rel: 'placeholder', href: 'http://my-link.com' },
+                        ],
+                    },
+                    6: {
+                        title: 'ADR - 1',
+                        status: 'deprecated',
+                        creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
+                        updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
+                        contextAndProblemStatement: 'placeholder',
+                        decisionDrivers: ['placeholder'],
+                        consideredOptions: [
+                            {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                        ],
+                        decisionOutcome: {
+                            chosenOption: {
+                                name: 'placeholder',
+                                description: 'placeholder',
+                                positiveConsequences: ['placeholder'],
+                                negativeConsequences: ['placeholder'],
+                            },
+                            rationale: 'placeholder',
+                        },
+                        links: [
+                            { rel: 'placeholder', href: 'http://my-link.com' },
+                        ],
+                    },
                 },
             },
             {
                 adrId: NumberInt(2),
                 revisions: {
                     1: {
-                        title: 'ADR - 2',
-                        status: 'accepted',
+                        title: 'Proposed - 2',
+                        status: 'proposed',
                         creationDateTime: [2025, 4, 29, 12, 44, 25, 465265627],
                         updateDateTime: [2025, 4, 29, 12, 44, 25, 465338085],
                         contextAndProblemStatement:

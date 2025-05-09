@@ -10,6 +10,7 @@ import {
     Data,
     Revision,
     AdrID,
+    Adr,
 } from '../model/calm.js';
 import {
     fetchNamespaces,
@@ -40,6 +41,7 @@ function Hub() {
     const [currentCalmType, setCurrentCalmType] = useState<string | undefined>();
 
     const [data, setData] = useState<Data | undefined>();
+    const [adrData, setAdrData] = useState<Adr | undefined>();
     const [versions, setVersions] = useState<Version[]>([]);
     const [revisions, setRevisions] = useState<Revision[]>([]);
 
@@ -78,7 +80,6 @@ function Hub() {
             setAdrIDs([]);
         } else if (calmType === 'ADRs') {
             fetchAdrIDs(currentNamespace!, setAdrIDs);
-            console.log('ADR IDS ARE: ', adrIDs);
             setRevisions([]);
             setArchitectureIDs([]);
             setPatternIDs([]);
@@ -86,7 +87,6 @@ function Hub() {
         }
         setVersions([]);
         setData(undefined);
-        console.log('ARCHITECTURE IDS ARE: ', architectureIDs);
     };
 
     const handlePatternOrFlowSelection = (selectedID: string) => {
@@ -124,7 +124,7 @@ function Hub() {
         setCurrentRevision(revision);
 
         if (currentCalmType === 'ADRs') {
-            fetchAdr(currentNamespace || '', currentPatternOrFlowID || '', revision, setData);
+            fetchAdr(currentNamespace || '', currentPatternOrFlowID || '', revision, setAdrData);
         }
     };
 
@@ -194,7 +194,7 @@ function Hub() {
                 {currentCalmType !== 'ADRs' ? (
                     <JsonRenderer jsonString={data} />
                 ) : (
-                    <AdrRenderer adrDetails={data} />
+                    <AdrRenderer adrDetails={adrData} />
                 )}
             </div>
         </>

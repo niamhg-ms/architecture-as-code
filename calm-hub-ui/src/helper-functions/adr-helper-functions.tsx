@@ -6,7 +6,7 @@ import { Decision } from '../model/adr/decision.js';
 
 export function styleTitle(title: string) {
     return (
-        <p className="pb-1 font-bold border-b text-lg text-blue-400/100 collapse-title peer-checked:text-accent m-auto p-0 min-h-auto">
+        <p className="pb-1 font-bold border-b text-lg text-blue-400/100 collapse-title peer-checked:text-accent m-auto p-auto ps-0 min-h-auto">
             {title}
         </p>
     );

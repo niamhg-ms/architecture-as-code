@@ -35,7 +35,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
             <div className="font-bold inline text-4xl"> {adr && adr!.title}</div>
             {adr && adr!.status && displayAdrStatus(adr && adr!.status)}
 
-            <div className="mt-3 collapse">
+            <div className="mt-3 collapse collapse-arrow">
                 <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Context and Problem')}
 
@@ -44,7 +44,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 </div>
             </div>
 
-            <div className="mt-2 collapse">
+            <div className="mt-2 collapse collapse-arrow">
                 <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Decision Drivers')}
 
@@ -53,7 +53,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 </div>
             </div>
 
-            <div className="mt-2 collapse">
+            <div className="mt-2 collapse collapse-arrow">
                 <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Considered Options')}
 
@@ -62,7 +62,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 </div>
             </div>
 
-            <div className="mt-2 collapse">
+            <div className="mt-2 collapse collapse-arrow">
                 <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Decision Outcome')}
 
@@ -71,7 +71,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 </div>
             </div>
 
-            <div className="mt-2 mb-5 collapse">
+            <div className="mt-2 mb-5 collapse collapse-arrow">
                 <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Relevant Links')}
 

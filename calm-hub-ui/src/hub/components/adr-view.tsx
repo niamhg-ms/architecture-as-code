@@ -32,8 +32,10 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 Edit ADR
             </button>
 
-            <div className="font-bold inline text-4xl"> {adr && adr!.title}</div>
-            {adr && adr!.status && displayAdrStatus(adr && adr!.status)}
+            <div>
+                <h1 className="font-bold inline text-4xl">{adr && adr!.title}</h1>
+                {adr && adr!.status && displayAdrStatus(adr && adr!.status)}
+            </div>
 
             <div className="mt-3 collapse collapse-arrow">
                 <input type="checkbox" defaultChecked className="peer" />
@@ -57,7 +59,7 @@ export function AdrRenderer({ adrDetails }: AdrRendererProps) {
                 <input type="checkbox" defaultChecked className="peer" />
                 {styleTitle('Considered Options')}
 
-                <div className="collapse-content">
+                <div className="collapse-content ps-0 pt-0">
                     {adr && displayConsideredOptions(adr!.consideredOptions)}
                 </div>
             </div>

@@ -28,7 +28,6 @@ describe('ADR View', () => {
         title: 'adr title',
         status: adrStatus.draft,
         creationDateTime: '2025-04-29T12:44:25.465265627',
-        // this cannot be null? - should probably be allowed to be null as adrs won't always be updated
         updateDateTime: '2025-04-30T12:50:25.465265627',
         contextAndProblemStatement: 'This is the markdown *context* and the markdown *problem*',
         decisionDrivers: ['decision driver one', 'decision driver two'],

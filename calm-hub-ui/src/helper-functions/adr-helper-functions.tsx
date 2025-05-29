@@ -69,8 +69,8 @@ export function displayConsideredOptions(consideredOptions: Option[]) {
     let returnList = [];
     for (var consideredOption of consideredOptions) {
         returnList.push(
-            <div className="pt-2">
-                <div className="collapse collapse-arrow border border-l-4 border-gray-300 border-l-blue-500 p-1">
+            <div className="mt-3">
+                <div className="collapse collapse-arrow border border-l-4 border-gray-300 border-l-blue-500">
                     <input type="checkbox" />
                     <div className="collapse-title font-bold">{consideredOption.name}</div>
 

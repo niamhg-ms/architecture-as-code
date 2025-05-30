@@ -88,7 +88,6 @@ function Hub() {
             setFlowIDs([]);
             setAdrIDs([]);
         } else if (calmType === 'ADRs') {
-            console.log('hi');
             adrService.fetchAdrIDs(currentNamespace!).then((res) => setAdrIDs(res));
             setRevisions([]);
             setArchitectureIDs([]);

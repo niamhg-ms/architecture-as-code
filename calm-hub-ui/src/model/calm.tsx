@@ -16,6 +16,6 @@ export type Data = {
     id: string;
     version: string;
     name: Namespace;
-    calmType: CalmType;
     data: Pattern | Architecture | Flow | Adr | undefined;
+    calmType: CalmType;
 };

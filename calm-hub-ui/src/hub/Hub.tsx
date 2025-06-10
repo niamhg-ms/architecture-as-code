@@ -10,7 +10,11 @@ import {
     Data,
     Revision,
     AdrID,
+<<<<<<< HEAD
     Adr,
+=======
+    Adr
+>>>>>>> 77bbea6b8428782a52729efd5d7d96c271d0d4ae
 } from '../model/calm.js';
 import {
     fetchNamespaces,
@@ -27,7 +31,10 @@ import {
 import { Navbar } from '../components/navbar/Navbar.js';
 import { AdrRenderer } from './components/adr-renderer/AdrRenderer.js';
 import { AdrService } from '../service/adr-service/adr-service.js';
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
+=======
+>>>>>>> 77bbea6b8428782a52729efd5d7d96c271d0d4ae
 
 function Hub() {
     const navigate = useNavigate();
@@ -65,10 +72,13 @@ function Hub() {
         fetchPatternIDs(namespace, setPatternIDs);
     };
 
+<<<<<<< HEAD
     function handleClick(data: Data) {
         navigate('/visualizer', { state: data });
     }
 
+=======
+>>>>>>> 77bbea6b8428782a52729efd5d7d96c271d0d4ae
     const handleCalmTypeSelection = async (calmType: string) => {
         setCurrentCalmType(calmType);
 

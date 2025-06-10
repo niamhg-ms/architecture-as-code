@@ -1,4 +1,4 @@
-import { AdrMeta } from "./adr/adr.meta.js";
+import { AdrMeta } from './adr/adr.meta.js';
 
 export type Namespace = string;
 export type PatternID = string;
@@ -9,10 +9,9 @@ export type FlowID = string;
 export type AdrID = string;
 export type Flow = string;
 export type Version = string;
+export type CalmType = 'Architectures' | 'Patterns' | 'Flows' | 'ADRs';
 export type Revision = string;
 export type Adr = AdrMeta;
-export type CalmType =  'Architectures' | 'Patterns' | 'Flows' | 'ADRs';
-
 export type Data = {
     id: string;
     version: string;

@@ -70,7 +70,7 @@ export function DisplayConsideredOptions(props: { consideredOptions: Option[] })
     const returnList = [];
     for (const consideredOption of props.consideredOptions) {
         returnList.push(
-            <div className="mt-3">
+            <div className="mt-3" key={consideredOption.name}>
                 <div className="collapse collapse-arrow border border-l-4 border-gray-300 border-l-blue-500">
                     <input type="checkbox" />
                     <div className="collapse-title font-bold">{consideredOption.name}</div>
